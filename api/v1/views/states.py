@@ -5,7 +5,7 @@
 from models.state import State
 from models import storage
 from api.v1.views import app_views
-from flask import jsonify, request, abort
+from flask import jsonify, request, make_response, abort
 
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
@@ -44,7 +44,7 @@ def post_state():
     """Create a new State"""
     data = request.get_json()
     if not data:
-        return abort(400, "Not a JSON")
+        return make_response(jsonify({"error": "Not a JSON"}), 400)
     if 'name' not in data:
         abort(400, "Missing name")
 
