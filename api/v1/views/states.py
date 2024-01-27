@@ -67,6 +67,6 @@ def put_state(state_id):
                 setattr(state, key, value)
 
         state.save()
-        return jsonify(state.to_dict()), 200
+        return make_response(jsonify(state.to_dict()), 200)
     else:
         abort(404)
