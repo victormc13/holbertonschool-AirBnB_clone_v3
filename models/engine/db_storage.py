@@ -1,9 +1,6 @@
 #!/usr/bin/python3
-"""
-Contains the class DBStorage
-"""
+"""Contains the class DBStorage"""
 
-import models
 from models.amenity import Amenity
 from models.base_model import BaseModel, Base
 from models.city import City
@@ -77,10 +74,11 @@ class DBStorage:
 
     def get(self, cls, id):
         """Retrieve an object"""
+        from models import storage
         if cls not in classes.values():
             return None
 
-        all_cls = models.storage.all(cls)
+        all_cls = storage.all(cls)
         for value in all_cls.values():
             if value.id == id:
                 return value
@@ -89,13 +87,14 @@ class DBStorage:
 
     def count(self, cls=None):
         """Count the number of objects in storage"""
+        from models import storage
         total = 0
         all_classes = classes.values()
 
         if not cls:
             for _class in all_classes:
-                total += len(models.storage.all(_class).values())
+                total += len(storage.all(_class).values())
         else:
-            total = len(models.storage.all(cls).values())
+            total = len(storage.all(cls).values())
 
         return total
